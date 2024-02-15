@@ -24,18 +24,27 @@ router.get("/api/users", async (req, res) => {
 
 router.post("/api/users/:id/exercises", async (request, response) => {
   const { description: des, duration: dur, date: dat } = request.body;
+
   try {
     const user = await UserModel.findById(request.params.id);
     if (!user) {
       return response.status(404).json("No user with that id");
     }
-    user.exercises.push({
+
+    user.log.push({
       description: des,
       duration: dur,
-      date: Date.parse(dat),
+      date: dat ? new Date(dat) : new Date.now(),
     });
-    const { username, _id, description, date, duration } = await user.save();
-    response.json({ _id, username, description, duration, date });
+    console.log(user);
+    const { username, _id } = await user.save();
+    response.json({
+      _id,
+      username,
+      description: desc,
+      duration: dur,
+      date: dat,
+    });
   } catch (error) {
     response.status(500).send(error);
   }
