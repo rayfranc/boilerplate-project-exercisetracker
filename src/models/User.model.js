@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     {
       description: { type: String },
       duration: { type: Number },
-      date: { type: Date },
+      date: { type: String },
     },
   ],
 });
