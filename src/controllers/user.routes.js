@@ -58,8 +58,8 @@ router.get("/api/users/:id/logs", async (req, res) => {
   if (!user) {
     return res.status(404).json("no user with this id");
   }
-  let from = req.query.from ? new Date(req.query.to) : new Date(0);
-  let to = req.query.to ? new Date(req.query.to) : new Date();
+  let from = req.query.from ? new Date(req.query.from) : new Date(0);
+  let to = req.query.to ? new Date(req.query.to) : new Date(Date.now());
   let limit = parseInt(req.query.limit);
 
   log = user.log
@@ -69,7 +69,7 @@ router.get("/api/users/:id/logs", async (req, res) => {
   return res.json({
     __id: user._id,
     username: user.username,
-    count: user.log.length,
+    count: log.length,
     log: log,
   });
 });
