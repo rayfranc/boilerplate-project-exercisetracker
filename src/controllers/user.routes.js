@@ -53,4 +53,17 @@ router.post("/api/users/:id/exercises", async (request, response) => {
   }
 });
 
+router.get("/api/users/:id/logs", async (req, res) => {
+  const user = await UserModel.findById(req.params.id);
+  if (!user) {
+    return res.status(404).json("no user with this id");
+  }
+  return res.json({
+    __id: user._id,
+    username: user.username,
+    count: user.log.length,
+    log: user.log,
+  });
+});
+
 module.exports = router;
