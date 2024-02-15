@@ -30,11 +30,13 @@ router.post("/api/users/:id/exercises", async (request, response) => {
     if (!user) {
       return response.status(404).json("No user with that id");
     }
-
+    const dateP = dat
+      ? new Date(dat).toUTCString()
+      : new Date.now().toUTCString();
     user.log.push({
       description: des,
       duration: dur,
-      date: dat ? new Date(dat) : new Date.now(),
+      date: dateP,
     });
     console.log(user);
     await user.save();
@@ -43,7 +45,7 @@ router.post("/api/users/:id/exercises", async (request, response) => {
       username: user.username,
       description: des,
       duration: dur,
-      date: dat,
+      date: dateP,
     });
   } catch (error) {
     console.log(error);
