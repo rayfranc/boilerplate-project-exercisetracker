@@ -37,15 +37,16 @@ router.post("/api/users/:id/exercises", async (request, response) => {
       date: dat ? new Date(dat) : new Date.now(),
     });
     console.log(user);
-    const { username, _id } = await user.save();
+    await user.save();
     response.json({
-      _id,
-      username,
-      description: desc,
+      _id: user._id,
+      username: user.username,
+      description: des,
       duration: dur,
       date: dat,
     });
   } catch (error) {
+    console.log(error);
     response.status(500).send(error);
   }
 });
