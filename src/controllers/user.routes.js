@@ -35,7 +35,7 @@ router.post("/api/users/:id/exercises", async (request, response) => {
       : new Date.now().toUTCString();
     user.log.push({
       description: des,
-      duration: dur,
+      duration: parseInt(dur),
       date: dateP,
     });
     console.log(user);
@@ -44,7 +44,7 @@ router.post("/api/users/:id/exercises", async (request, response) => {
       _id: user._id,
       username: user.username,
       description: des,
-      duration: dur,
+      duration: parseInt(dur),
       date: dateP,
     });
   } catch (error) {
